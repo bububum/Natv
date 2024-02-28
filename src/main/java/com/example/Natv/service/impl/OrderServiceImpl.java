@@ -22,13 +22,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository, Or
 
     @Override
     public void create(OrderCreateRequest request) {
-        Order order = Order.builder()
-                .user(mapper.toEntity(request.getUserDTO(), context))
+        OrderDTO order = OrderDTO.builder()
+                .user(request.getUserDTO())
                 .channels(request.getChannels())
                 .totalPrice(request.getTotalPrice())
                 .text(request.getText())
                 .build();
 
-        save(mapper.toDto(order, context));
+        save(order);
     }
 }

@@ -5,6 +5,7 @@ import com.example.Natv.model.enums.Status;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -19,6 +20,6 @@ public class ChannelDTO extends BaseDto {
     Integer price;
     Integer rating;
     Status status;
-    Set<DiscountDTO> discounts;
-    Set<OrderDTO> orders;
+    List<DiscountDTO> discounts;
+    List<OrderDTO> orders;
 }

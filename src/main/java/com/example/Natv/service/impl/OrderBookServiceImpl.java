@@ -22,13 +22,13 @@ public class OrderBookServiceImpl extends BaseServiceImpl<OrderBook, OrderBookRe
 
     @Override
     public void create(OrderBookCreateRequest request) {
-        OrderBook orderBook = OrderBook.builder()
+        OrderBookDTO orderBook = OrderBookDTO.builder()
                 .bookDate(request.getBookDate())
-                .order(mapper.toEntity(request.getOrder(), context))
-                .channel(mapper.toEntity(request.getChannel(), context))
+                .order(request.getOrder())
+                .channel(request.getChannel())
                 .price(request.getPrice())
                 .build();
 
-        save(mapper.toDto(orderBook, context));
+        save(orderBook);
     }
 }

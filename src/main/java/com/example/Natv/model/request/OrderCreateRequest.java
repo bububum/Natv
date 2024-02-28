@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -20,5 +21,5 @@ public class OrderCreateRequest {
     String text;
     Integer totalPrice;
     UserDTO userDTO;
-    Set<ChannelDTO> channels;
+    List<ChannelDTO> channels;
 }

@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -33,5 +34,5 @@ public class Discount extends BaseEntity {
             joinColumns = @JoinColumn(name = "discount_id"),
             inverseJoinColumns = @JoinColumn(name = "channel_id")
     )
-    Set<Channel> channels;
+    List<Channel> channels;
 }

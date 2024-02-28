@@ -5,6 +5,7 @@ import com.example.Natv.model.entity.User;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -18,5 +19,5 @@ public class OrderDTO extends BaseDto {
     String text;
     Integer totalPrice;
     UserDTO user;
-    Set<ChannelDTO> channels;
+    List<ChannelDTO> channels;
 }

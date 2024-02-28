@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,6 +33,6 @@ public class Order extends BaseEntity {
             name = "order_channel",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "channel_id"))
-    Set<Channel> channels;
+    List<Channel> channels;
 
 }

@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -20,5 +21,5 @@ public class DiscountDTO extends BaseDto {
     String definition;
     LocalDate startDate;
     LocalDate endDate;
-    Set<ChannelDTO> channels;
+    List<ChannelDTO> channels;
 }

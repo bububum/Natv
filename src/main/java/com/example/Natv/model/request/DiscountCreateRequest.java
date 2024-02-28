@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,5 +23,5 @@ public class DiscountCreateRequest {
     String definition;
     LocalDate startDate;
     LocalDate endDate;
-    Set<ChannelDTO> channels;
+    List<Long> channelsId;
 }

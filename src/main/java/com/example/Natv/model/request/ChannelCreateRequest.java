@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,6 +25,6 @@ public class ChannelCreateRequest {
     Integer price;
     Integer rating;
     Status status;
-    Set<DiscountDTO> discounts;
-    Set<OrderDTO> orders;
+    List<Long> discountsId;
+    List<Long> ordersId;
 }

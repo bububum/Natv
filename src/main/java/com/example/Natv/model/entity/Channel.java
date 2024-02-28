@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -29,8 +30,8 @@ public class Channel extends BaseEntity {
 
 
     @ManyToMany(mappedBy = "channels")
-    Set<Order> orders;
+    List<Order> orders;
 
     @ManyToMany(mappedBy = "channels")
-    Set<Discount> discounts;
+    List<Discount> discounts;
 }
