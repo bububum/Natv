@@ -23,5 +23,5 @@ public class DiscountCreateRequest {
     String definition;
     LocalDate startDate;
     LocalDate endDate;
-    List<Long> channelsId;
+
 }

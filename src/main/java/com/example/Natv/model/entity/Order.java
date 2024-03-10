@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -12,9 +13,9 @@ import java.util.Set;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "tb_order")
 public class Order extends BaseEntity {
 
@@ -23,16 +24,12 @@ public class Order extends BaseEntity {
     Long id;
 
     String text;
-    Integer totalPrice;
+    BigDecimal totalPrice;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_channel",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "channel_id"))
-    List<Channel> channels;
+
 
 }

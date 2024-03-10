@@ -18,13 +18,13 @@ public class UserServiceImpl extends BaseServiceImpl<User, UserRepository, UserD
 
     @Override
     public void create(UserCreateRequest request) {
-        User user = User.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .lastname(request.getLastname())
-                .middleName(request.getMiddleName())
-                .phone_num(request.getPhone_num())
-                .build();
-        save(mapper.toDto(user, context));
+//        User user = User.builder()
+//                .name(request.getName())
+//                .email(request.getEmail())
+//                .lastname(request.getLastname())
+//                .middleName(request.getMiddleName())
+//                .phone_num(request.getPhone_num())
+//                .build();
+//        save(mapper.toDto(user, context));
     }
 }

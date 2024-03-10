@@ -12,9 +12,9 @@ import java.util.Set;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "tb_discount")
 public class Discount extends BaseEntity {
 
@@ -28,11 +28,4 @@ public class Discount extends BaseEntity {
     LocalDate startDate;
     LocalDate endDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "discount_channel",
-            joinColumns = @JoinColumn(name = "discount_id"),
-            inverseJoinColumns = @JoinColumn(name = "channel_id")
-    )
-    List<Channel> channels;
 }

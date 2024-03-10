@@ -14,6 +14,8 @@ import com.example.Natv.service.OrderBookService;
 import com.example.Natv.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderBookServiceImpl extends BaseServiceImpl<OrderBook, OrderBookRepository, OrderBookDTO, OrderBookMapper> implements OrderBookService {
     public OrderBookServiceImpl(OrderBookRepository rep, OrderBookMapper mapper) {
@@ -22,13 +24,18 @@ public class OrderBookServiceImpl extends BaseServiceImpl<OrderBook, OrderBookRe
 
     @Override
     public void create(OrderBookCreateRequest request) {
-        OrderBookDTO orderBook = OrderBookDTO.builder()
-                .bookDate(request.getBookDate())
-                .order(request.getOrder())
-                .channel(request.getChannel())
-                .price(request.getPrice())
-                .build();
+//        OrderBookDTO orderBook = OrderBookDTO.builder()
+//                .bookDate(request.getBookDate())
+//                .order(request.getOrder())
+//                .channel(request.getChannel())
+//                .price(request.getPrice())
+//                .build();
+//
+//        save(orderBook);
+    }
 
-        save(orderBook);
+    @Override
+    public void saveAll(List<OrderBookDTO> orderBooks) {
+//        rep.saveAll(OrderBookMapper.);
     }
 }

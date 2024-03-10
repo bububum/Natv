@@ -2,51 +2,52 @@ package com.example.Natv.service.impl;
 
 import com.example.Natv.base.BaseServiceImpl;
 import com.example.Natv.dao.DiscountRepository;
-import com.example.Natv.mapper.ChannelMapper;
 import com.example.Natv.mapper.DiscountMapper;
 import com.example.Natv.model.DTO.DiscountDTO;
-import com.example.Natv.model.entity.Channel;
 import com.example.Natv.model.entity.Discount;
 import com.example.Natv.model.request.DiscountCreateRequest;
-import com.example.Natv.service.ChannelService;
+import com.example.Natv.model.response.DiscountResponse;
 import com.example.Natv.service.DiscountService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class DiscountServiceImpl extends BaseServiceImpl<Discount, DiscountRepository, DiscountDTO, DiscountMapper> implements DiscountService {
 
-    public DiscountServiceImpl(DiscountRepository rep, DiscountMapper mapper, ChannelService channelService, ChannelMapper channelMapper) {
+    public DiscountServiceImpl(DiscountRepository rep, DiscountMapper mapper) {
         super(rep, mapper);
-        this.channelService = channelService;
-        this.channelMapper = channelMapper;
     }
 
-    private final ChannelService channelService;
-    private final ChannelMapper channelMapper;
+
 
     @Override
-    public void create(DiscountCreateRequest request) {
+    public String create(DiscountCreateRequest request) {
+        DiscountDTO discount = new DiscountDTO();
+        discount.setDays(request.getDays());
+        discount.setDefinition(request.getDefinition());
+        discount.setEndDate(request.getEndDate());
+        discount.setStartDate(request.getStartDate());
+        discount.setPercent(request.getPercent());
 
-        List<Channel> channelList = new ArrayList<>();
+        save(discount);
 
-        for (Long id: request.getChannelsId()) {
-            Channel channel = new Channel();
-            channel = channelMapper.toEntity(channelService.findById(id), context);
-            channelList.add(channel);
-        }
+        return "Success";
+    }
 
-        Discount discount = Discount.builder()
-                .channels(channelList)
-                .days(request.getDays())
-                .definition(request.getDefinition())
-                .endDate(request.getEndDate())
-                .startDate(request.getStartDate())
-                .percent(request.getPercent())
-                .build();
+    @Override
+    public List<DiscountDTO> findAllByIds(List<Long> ids) {
 
-        save(mapper.toDto(discount, context));
+        return mapper.toDtos(rep.findAllByIds(ids),context);
+    }
+
+    @Override
+    public List<DiscountResponse> getAllActiveDiscount() {
+        return rep.getAllActiveDiscount();
+    }
+
+    @Override
+    public List<DiscountResponse> getAllDiscByChannelId(Long id) {
+        return rep.getAllDiscByChannelId(id);
     }
 }

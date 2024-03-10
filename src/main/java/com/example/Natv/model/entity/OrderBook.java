@@ -5,14 +5,15 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "tb_order_book")
 public class OrderBook extends BaseEntity {
 
@@ -21,7 +22,7 @@ public class OrderBook extends BaseEntity {
     Long id;
 
     LocalDate bookDate;
-    Integer price;
+    BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

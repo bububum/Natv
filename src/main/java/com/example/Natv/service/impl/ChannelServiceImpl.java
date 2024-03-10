@@ -3,18 +3,17 @@ package com.example.Natv.service.impl;
 import com.example.Natv.base.BaseServiceImpl;
 import com.example.Natv.dao.ChannelRepository;
 import com.example.Natv.mapper.ChannelMapper;
-import com.example.Natv.mapper.DiscountMapper;
-import com.example.Natv.mapper.OrderMapper;
+import com.example.Natv.microservices.FileService;
 import com.example.Natv.model.DTO.ChannelDTO;
 import com.example.Natv.model.entity.Channel;
-import com.example.Natv.model.entity.Discount;
-import com.example.Natv.model.entity.Order;
-import com.example.Natv.model.enums.Status;
 import com.example.Natv.model.request.ChannelCreateRequest;
+import com.example.Natv.model.response.ChannelListResponse;
+import com.example.Natv.model.response.DiscountResponse;
+import com.example.Natv.model.response.FileServiceUploadResponse;
 import com.example.Natv.model.response.MainChannelPageResponse;
 import com.example.Natv.service.ChannelService;
 import com.example.Natv.service.DiscountService;
-import com.example.Natv.service.OrderService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,54 +21,67 @@ import java.util.List;
 
 @Service
 public class ChannelServiceImpl extends BaseServiceImpl<Channel, ChannelRepository, ChannelDTO, ChannelMapper> implements ChannelService {
-    public ChannelServiceImpl(ChannelRepository rep, ChannelMapper mapper, DiscountService discountService, DiscountMapper discountMapper, OrderService orderService, OrderMapper orderMapper){
+    public ChannelServiceImpl(ChannelRepository rep,
+                              ChannelMapper mapper,
+                              FileService fileService, DiscountService discountService){
         super(rep, mapper);
+
+
+        this.fileService = fileService;
         this.discountService = discountService;
-        this.discountMapper = discountMapper;
-        this.orderService = orderService;
-        this.orderMapper = orderMapper;
     }
 
+    private final FileService fileService;
     private final DiscountService discountService;
-    private final DiscountMapper discountMapper;
-    private final OrderService orderService;
-    private final OrderMapper orderMapper;
+
+
 
 
     @Override
-    public void create(ChannelCreateRequest request) {
-
-        List<Discount> discountList = new ArrayList<>();
-        List<Order> orderList = new ArrayList<>();
+    public String create(ChannelCreateRequest request) {
 
 
-        for(Long id: request.getDiscountsId()) {
-            Discount discount = new Discount();
-            discount = discountMapper.toEntity(discountService.findById(id), context);
-            discountList.add(discount);
-        }
-
-        for(Long id: request.getOrdersId()) {
-            Order order = new Order();
-            order = orderMapper.toEntity(orderService.findById(id), context);
-            orderList.add(order);
-        }
+        FileServiceUploadResponse response=fileService.upload(request.getLogo());
 
 
-        Channel channel = Channel.builder()
-                .discounts(discountList)
-                .price(request.getPrice())
-                .name(request.getName())
-                .orders(orderList)
-                .rating(request.getRating())
-                .status(Status.ACTIVE)
-                .build();
+        ChannelDTO channel = new ChannelDTO();
+        channel.setPrice(request.getPrice());
+        channel.setLogo(response.getDownloadUri());
+        channel.setName(request.getName());
+        channel.setRating(request.getRating());
 
-        save(mapper.toDto(channel, context));
+        save(channel);
+
+
+        return "Успешно";
     }
 
     @Override
     public MainChannelPageResponse mainPage() {
         return (MainChannelPageResponse) rep.getMainPage();
     }
+
+    @Override
+    public List<MainChannelPageResponse> getList(Integer pageNum, Integer limit) {
+
+        List<ChannelListResponse> response=rep.getList(PageRequest.of(pageNum,limit));
+
+        List<MainChannelPageResponse> result=new ArrayList<>();
+
+        for (ChannelListResponse item:response){
+            MainChannelPageResponse mainChannelPageResponse=new MainChannelPageResponse();
+            mainChannelPageResponse.setChannelId(item.getId());
+            mainChannelPageResponse.setChannelName(item.getName());
+            mainChannelPageResponse.setPrice(item.getPrice());
+
+            List<DiscountResponse> discountDTOS=discountService.getAllDiscByChannelId(item.getId());
+
+            mainChannelPageResponse.setDiscounts(discountDTOS);
+
+            result.add(mainChannelPageResponse);
+        }
+
+        return result;
+    }
 }
+

@@ -11,9 +11,9 @@ import java.util.Set;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@Builder
 @RequiredArgsConstructor
 @ToString
+@EqualsAndHashCode(callSuper = true)
 public class DiscountDTO extends BaseDto {
 
     Integer percent;

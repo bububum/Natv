@@ -10,16 +10,19 @@ import java.util.Set;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@AllArgsConstructor
-@Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
+@EqualsAndHashCode(callSuper = true)
 public class ChannelDTO extends BaseDto {
 
     String name;
     Integer price;
     Integer rating;
     Status status;
-    List<DiscountDTO> discounts;
-    List<OrderDTO> orders;
+    String logo;
+
+    public ChannelDTO(Long id) {
+        super(id);
+    }
 }

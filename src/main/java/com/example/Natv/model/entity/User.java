@@ -8,10 +8,10 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tb_user")
-@Builder
+@EqualsAndHashCode(callSuper = true)
 public class User extends BaseEntity {
 
     @Id
@@ -24,3 +24,4 @@ public class User extends BaseEntity {
     String email;
     String phone_num;
 }
+

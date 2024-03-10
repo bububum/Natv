@@ -8,5 +8,5 @@ import com.example.Natv.model.request.OrderCreateRequest;
 
 public interface OrderService extends BaseService<OrderDTO> {
 
-    void create(OrderCreateRequest request);
+    String create(OrderCreateRequest request);
 }

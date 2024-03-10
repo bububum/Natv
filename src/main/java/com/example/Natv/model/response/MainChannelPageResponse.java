@@ -3,6 +3,7 @@ package com.example.Natv.model.response;
 import com.example.Natv.model.DTO.DiscountDTO;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -11,6 +12,6 @@ public class MainChannelPageResponse {
 
     Long channelId;
     String channelName;
-    Integer price;
-    List<DiscountDTO> discounts;
+    BigDecimal price;
+    List<DiscountResponse> discounts;
 }

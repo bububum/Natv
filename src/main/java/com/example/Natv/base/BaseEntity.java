@@ -2,9 +2,7 @@ package com.example.Natv.base;
 
 
 import com.example.Natv.model.enums.Status;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,6 +14,7 @@ public abstract class BaseEntity {
 
     protected LocalDateTime createdDate;
     protected LocalDateTime updatedDate;
+    @Enumerated(EnumType.STRING)
     protected Status status;
 
     @PrePersist

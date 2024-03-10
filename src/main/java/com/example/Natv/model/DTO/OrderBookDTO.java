@@ -9,18 +9,21 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @ToString
 public class OrderBookDTO extends BaseDto {
 
-    LocalDate bookDate;
+    List<LocalDate> bookDate;
     Integer price;
 
     OrderDTO order;
 
     ChannelDTO channel;
 }
+

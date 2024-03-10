@@ -13,9 +13,9 @@ import java.util.Set;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Entity
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @Table(name = "tb_channel")
 public class Channel extends BaseEntity {
 
@@ -26,12 +26,9 @@ public class Channel extends BaseEntity {
     String name;
     Integer price;
     Integer rating;
-    Status status;
+    String logo;
 
 
-    @ManyToMany(mappedBy = "channels")
-    List<Order> orders;
 
-    @ManyToMany(mappedBy = "channels")
-    List<Discount> discounts;
+
 }

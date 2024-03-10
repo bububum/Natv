@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
-@Builder
+@EqualsAndHashCode(callSuper = true)
 @RequiredArgsConstructor
 @ToString
 public class UserDTO extends BaseDto {
