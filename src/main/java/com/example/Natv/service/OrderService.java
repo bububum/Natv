@@ -5,8 +5,9 @@ import com.example.Natv.model.DTO.OrderDTO;
 import com.example.Natv.model.DTO.UserDTO;
 import com.example.Natv.model.request.OrderBookCreateRequest;
 import com.example.Natv.model.request.OrderCreateRequest;
+import com.example.Natv.model.response.OrderResponse;
 
 public interface OrderService extends BaseService<OrderDTO> {
 
-    String create(OrderCreateRequest request);
+    OrderResponse create(OrderCreateRequest request);
 }

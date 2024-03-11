@@ -50,4 +50,9 @@ public class DiscountServiceImpl extends BaseServiceImpl<Discount, DiscountRepos
     public List<DiscountResponse> getAllDiscByChannelId(Long id) {
         return rep.getAllDiscByChannelId(id);
     }
+
+    @Override
+    public DiscountDTO findByChannelIdAndCountOfDays(Long id, int size) {
+        return rep.findByChannelIdAndCountOfDays(id, size);
+    }
 }

@@ -15,5 +15,7 @@ public interface DiscountService extends BaseService<DiscountDTO> {
     List<DiscountResponse> getAllActiveDiscount();
 
     List<DiscountResponse> getAllDiscByChannelId(Long id);
+
+    DiscountDTO findByChannelIdAndCountOfDays(Long id, int size);
 }
 
