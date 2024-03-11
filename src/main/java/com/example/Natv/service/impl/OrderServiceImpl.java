@@ -52,13 +52,14 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository, Or
         order.setStatus(Status.ACTIVE);
 
 
-        List<LocalDate> bookingDates = new ArrayList<>();
         ChannelDTO channelDTO = new ChannelDTO();
-        Integer totalPrice = null;
+        Integer totalPrice = 0;
+        List<OrderBookDTO> orderBookDTOS = new ArrayList<>();
 
         for(ChannelOrderRequest item: request.getChannels()) {
 
             channelDTO = channelService.findById(item.getId());
+            List<LocalDate> bookingDates = new ArrayList<>();
 
             for (LocalDate book : item.getDays()) {
                 bookingDates.add(book);
@@ -71,12 +72,13 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderRepository, Or
             orderBookDTO.setPrice(channelDTO.getPrice()*order.getText().replaceAll("\\s", "").length());
 
             totalPrice +=orderBookDTO.getPrice();
+            orderBookDTOS.add(orderBookDTO);
         }
 
         order.setTotalPrice(totalPrice);
 
         save(order);
-        orderBookService.saveAll();
+        orderBookService.saveAll(orderBookDTOS);
 
 
 

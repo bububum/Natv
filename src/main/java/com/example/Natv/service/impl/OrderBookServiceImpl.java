@@ -36,6 +36,6 @@ public class OrderBookServiceImpl extends BaseServiceImpl<OrderBook, OrderBookRe
 
     @Override
     public void saveAll(List<OrderBookDTO> orderBooks) {
-//        rep.saveAll(OrderBookMapper.);
+        rep.saveAll(OrderBookMapper);
     }
 }
